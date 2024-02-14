@@ -7,10 +7,11 @@ public class MouseFollow : MonoBehaviour {
     private Vector3 worldMouse;
     private Vector3 initPosition;
     [SerializeField] private float smoothTime;
-    private Vector3 velocity;
+    public Vector3 velocity;
 
     private void Awake() {
         initPosition = transform.position;
+        Cursor.visible = false;
     }
 
     private void Update() {
@@ -18,7 +19,8 @@ public class MouseFollow : MonoBehaviour {
         worldMouse = cam.ScreenToWorldPoint(mousePos);
 
         var target = initPosition + worldMouse;
+        var newPosition = Vector3.SmoothDamp(gameObject.transform.position, target, ref velocity, smoothTime);
 
-        gameObject.transform.position = Vector3.SmoothDamp(gameObject.transform.position, target, ref velocity, smoothTime);
+        gameObject.transform.position = newPosition;
     }
 }
