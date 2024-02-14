@@ -25,9 +25,10 @@ public class PartOrbitor : Part
         print("snapped");
         Orbit.Kill();
         plugTransform.parent = null;
+        plugTransform.parent = socketTransform;
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(plugTransform.DOMove(socketTransform.position, SnapDuration))
+        sequence.Append(plugTransform.DOLocalMove(Vector3.zero, SnapDuration))
                 .Join(plugTransform.DORotateQuaternion(socketTransform.rotation, SnapDuration))
-                .OnComplete(() => plugTransform.parent = socketTransform);
+                .AppendCallback(() => Destroy(gameObject));
     }
 }
