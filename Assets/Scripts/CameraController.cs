@@ -1,45 +1,5 @@
 using UnityEngine;
 
-//public class CameraController : MonoBehaviour
-//{
-//    Camera camera;
-
-//    float lookSpeed = 3;
-//    Vector2 rotation = Vector2.zero;
-
-//    private void Awake()
-//    {
-//        camera = GetComponent<Camera>();
-//        print("Camera name: " + camera.name);
-
-//        Cursor.visible = false;
-//    }
-
-//    //public void Update()
-//    //{
-//    //    rotation.y += Input.GetAxis("Horizontal");
-//    //    rotation.x += -Input.GetAxis("Vertical");
-//    //    print("Y: " + rotation.y + ". X: " + rotation.x);
-//    //    rotation.x = Mathf.Clamp(rotation.x, -15f, 15f);
-//    //    transform.eulerAngles = new Vector2(0, rotation.y) * lookSpeed;
-//    //    camera.transform.localRotation = Quaternion.Euler(rotation.x * lookSpeed, 0, 0);
-//    //}
-
-//    float horizontalSpeed = 2.0f;
-//    float verticalSpeed = 2.0f;
-
-//    void Update()
-//    {
-//        // Get the mouse delta. This is not in the range -1...1
-//        float h = horizontalSpeed * Input.GetAxis("Mouse X");
-//        float v = verticalSpeed * Input.GetAxis("Mouse Y");
-
-//        transform.Rotate(v, h, 0);
-//    }
-//}
-
-
-
 public class CameraController : MonoBehaviour
 {
     [Space, Header("Look Settings")]
