@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PartOrbitor : Part
 {
+    [SerializeField] private float orbitTime = 50.0f;
+
     [SerializeField]
     Transform plugTransform;
 
@@ -13,7 +15,7 @@ public class PartOrbitor : Part
 
     void Start()
     {
-        Orbit = transform.DOBlendableRotateBy(-Vector3.up * 180.0f, 50.0f).SetLoops(-1, LoopType.Incremental).SetRelative().SetEase(Ease.Linear);
+        Orbit = transform.DOBlendableRotateBy(-Vector3.up * 180.0f, orbitTime).SetLoops(-1, LoopType.Incremental).SetRelative().SetEase(Ease.Linear);
         plugOffset = plugTransform.position - transform.position;
         print("Start");
     }
