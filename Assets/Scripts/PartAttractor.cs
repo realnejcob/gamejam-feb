@@ -5,6 +5,7 @@ public class PartAttractor : MonoBehaviour
     [SerializeField]
     Transform socketTransform;
 
+    // TODO: Extend to detect the correct socket, perhaps collider?
     private void OnTriggerStay(Collider other)
     {
         if (Input.GetMouseButtonDown(0))
@@ -18,7 +19,6 @@ public class PartAttractor : MonoBehaviour
                 print("Found part");
                 remote.Snap(socketTransform);
             }
-
         }
     }
 }
