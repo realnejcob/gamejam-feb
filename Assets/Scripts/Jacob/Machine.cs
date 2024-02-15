@@ -1,9 +1,8 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Machine : MonoBehaviour {
+public class Machine : MonoBehaviour
+{
     [SerializeField] private GameObject machineGameObject;
     [SerializeField] private List<GameObject> sockets = new List<GameObject>();
 
@@ -24,28 +23,36 @@ public class Machine : MonoBehaviour {
     [SerializeField] private AnimationCurve rotateEffectCurve;
 
 
-    private void Awake() {
+    private void Awake()
+    {
         cam = Camera.main;
     }
 
-    private void Start() {
+    private void Start()
+    {
         CheckAvailableSockets();
     }
 
-    void Update() {
+    void Update()
+    {
         CheckRotation();
         ConfigureDynamicFollow();
     }
 
-    private void ConfigureDynamicFollow() {
-        if (Input.GetMouseButtonDown(1)) {
+    private void ConfigureDynamicFollow()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
             ReadyRotation();
-        } else if (Input.GetMouseButtonUp(1)) {
+        }
+        else if (Input.GetMouseButtonUp(1))
+        {
             UnReadyRotation();
         }
     }
 
-    private void CheckRotation() {
+    private void CheckRotation()
+    {
         if (!canTween)
             return;
 
@@ -55,18 +62,26 @@ public class Machine : MonoBehaviour {
         var dynamicMousePos = cam.ScreenToViewportPoint(Input.mousePosition);
         var dynamicMousePosDelta = dynamicMousePos - staticMousePos;
 
-        if (dynamicMousePosDelta.y > mousePosTriggerOffset) {
+        if (dynamicMousePosDelta.y > mousePosTriggerOffset)
+        {
             //DoRotation(Vector3.right);
-        } else if (dynamicMousePosDelta.x < -mousePosTriggerOffset) {
+        }
+        else if (dynamicMousePosDelta.x < -mousePosTriggerOffset)
+        {
             DoRotation(Vector3.up);
-        } else if (dynamicMousePosDelta.y < -mousePosTriggerOffset) {
+        }
+        else if (dynamicMousePosDelta.y < -mousePosTriggerOffset)
+        {
             //DoRotation(Vector3.left);
-        } else if (dynamicMousePosDelta.x > mousePosTriggerOffset) {
+        }
+        else if (dynamicMousePosDelta.x > mousePosTriggerOffset)
+        {
             DoRotation(Vector3.down);
         }
     }
 
-    private void DoRotation(Vector3 _axis) {
+    private void DoRotation(Vector3 _axis)
+    {
         UnReadyRotation();
         DisableAllSockets();
 
@@ -75,7 +90,8 @@ public class Machine : MonoBehaviour {
         var _currentRotation = machineGameObject.transform.rotation.eulerAngles;
         LeanTween.rotateAround(machineGameObject, _axis, 90, rotationTime)
             .setEase(rotationCurve)
-            .setOnComplete(()=> {
+            .setOnComplete(() =>
+            {
                 EndRotation();
                 CheckAvailableSockets();
             });
@@ -83,60 +99,72 @@ public class Machine : MonoBehaviour {
         StartRotateEffect(_axis);
     }
 
-    private void EndRotation() {
+    private void EndRotation()
+    {
         canTween = true;
     }
 
-    private void ReadyRotation() {
+    private void ReadyRotation()
+    {
         rotationReady = true;
         machineFollow.SetCanFollowDynamic(false);
         staticMousePos = cam.ScreenToViewportPoint(Input.mousePosition);
     }
 
-    private void UnReadyRotation() {
+    private void UnReadyRotation()
+    {
         rotationReady = false;
         machineFollow.SetCanFollowDynamic(true);
         staticMousePos = Vector3.zero;
     }
 
-    private void StartRotateEffect(Vector3 _axis) {
+    private void StartRotateEffect(Vector3 _axis)
+    {
         var dir = _axis.y;
-        var baseRotateSpeed = 1.5f;
+        var baseRotateSpeed = 1;
 
         rotateEffect.transform.localScale = Vector3.one;
-        var time = rotationTime * 1;
+        var time = rotationTime * 2;
 
         var mat = rotateEffect.GetComponentInChildren<MeshRenderer>().material;
         mat.SetFloat("_Amount_X", dir * baseRotateSpeed);
 
-        LeanTween.value(0,1, time)
+        LeanTween.value(0, 1, time)
             .setEase(rotateEffectCurve)
-            .setOnUpdate((float t) => {
+            .setOnUpdate((float t) =>
+            {
 
                 var _newAlpha = Mathf.Lerp(0, 1, t);
                 mat.SetFloat("_Alpha", _newAlpha);
-        });
+            });
 
         LeanTween.scale(rotateEffect, Vector3.one * 1.1f, time)
             .setEase(rotationCurve);
     }
 
-    private void CheckAvailableSockets() {
-        for (int i = 0; i < sockets.Count; i++) {
+    private void CheckAvailableSockets()
+    {
+        for (int i = 0; i < sockets.Count; i++)
+        {
             var dot = Vector3.Dot(cam.transform.forward, sockets[i].transform.forward);
             var threshold = 0.1f;
 
-            if (dot >= -threshold && dot <= threshold) {
-                sockets[i].SetActive(true);
-            } else {
-                sockets[i].SetActive(false);
+            if (dot >= -threshold && dot <= threshold)
+            {
+                sockets[i].GetComponent<Collider>().enabled = true;
+            }
+            else
+            {
+                sockets[i].GetComponent<Collider>().enabled = false;
             }
         }
     }
 
-    private void DisableAllSockets() {
-        foreach (var socket in sockets) {
-            socket.SetActive(false);
+    private void DisableAllSockets()
+    {
+        foreach (var socket in sockets)
+        {
+            socket.GetComponent<Collider>().enabled = false;
         }
     }
 }
