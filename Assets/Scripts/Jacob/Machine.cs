@@ -18,6 +18,11 @@ public class Machine : MonoBehaviour {
     private Vector3 staticMousePos;
     private float mousePosTriggerOffset = 0.015f;
 
+    [Header("Effects:")]
+    [SerializeField] private MeshRenderer rotateEffect;
+    [SerializeField] private AnimationCurve rotateEffectCurve;
+
+
     private void Awake() {
         cam = Camera.main;
     }
@@ -64,6 +69,8 @@ public class Machine : MonoBehaviour {
         LeanTween.rotateAround(machineGameObject, _axis, 90, rotationTime)
             .setEase(rotationCurve)
             .setOnComplete(EndRotation);
+
+        StartRotateEffect();
     }
 
     private void EndRotation() {
@@ -80,5 +87,15 @@ public class Machine : MonoBehaviour {
         rotationReady = false;
         machineFollow.SetCanFollowDynamic(true);
         staticMousePos = Vector3.zero;
+    }
+
+    private LTDescr StartRotateEffect() {
+        var mat = rotateEffect.material;
+        return LeanTween.value(0,1,rotationTime * 0.9f)
+            .setEase(rotateEffectCurve)
+            .setOnUpdate((float t) => {
+                var value = Mathf.Lerp(0, 1, t);
+                mat.SetFloat("_Alpha", value);
+        });
     }
 }
