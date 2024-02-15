@@ -23,8 +23,8 @@ public class BigPart : Part
         transform.position = new Vector3(screenMax + screenBuffer, transform.position.y, transform.position.z);
 
         Orbit = DOTween.Sequence();
-        Orbit.Append(transform.DOMoveX(screenMin, orbitTime).OnComplete(() => transform.Rotate(0.0f, 0.0f, 180.0f)))
-                .Append(transform.DOMoveX(screenMax, orbitTime).OnComplete(() => transform.Rotate(0.0f, 0.0f, 180.0f))).SetLoops(-1);
+        Orbit.Append(transform.DOMoveX(screenMin, orbitTime).OnComplete(() => transform.Rotate(0.0f, 180.0f, 0)))
+                .Append(transform.DOMoveX(screenMax, orbitTime).OnComplete(() => transform.Rotate(0.0f, 180.0f, 0))).SetLoops(-1);
     }
 
     public override void Snap(Transform socketTransform)
@@ -37,4 +37,9 @@ public class BigPart : Part
                 .Join(plugTransform.DORotateQuaternion(socketTransform.rotation, SnapDuration))
                 .AppendCallback(() => Destroy(gameObject));
     }
+}
+
+public class SmallPart : Part
+{
+
 }
