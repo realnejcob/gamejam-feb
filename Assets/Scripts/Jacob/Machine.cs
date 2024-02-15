@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,31 +10,75 @@ public class Machine : MonoBehaviour {
     [SerializeField] private AnimationCurve rotationCurve;
 
     private bool canTween = true;
+    private bool rotationReady = false;
+
+    [SerializeField] private MouseFollow machineFollow;
+
+    private Camera cam;
+    private Vector3 staticMousePos;
+    private float mousePosTriggerOffset = 0.015f;
+
+    private void Awake() {
+        cam = Camera.main;
+    }
 
     void Update() {
         CheckRotation();
+        ConfigureDynamicFollow();
+    }
+
+    private void ConfigureDynamicFollow() {
+        if (Input.GetMouseButtonDown(1)) {
+            ReadyRotation();
+        } else if (Input.GetMouseButtonUp(1)) {
+            UnReadyRotation();
+        }
     }
 
     private void CheckRotation() {
         if (!canTween)
             return;
 
-        if (Input.GetKeyDown(KeyCode.W)) {
+        if (!rotationReady)
+            return;
+
+        var dynamicMousePos = cam.ScreenToViewportPoint(Input.mousePosition);
+        var dynamicMousePosDelta = dynamicMousePos - staticMousePos;
+
+        if (dynamicMousePosDelta.y > mousePosTriggerOffset) {
             DoRotation(Vector3.right);
-        } else if (Input.GetKeyDown(KeyCode.A)) {
+        } else if (dynamicMousePosDelta.x < -mousePosTriggerOffset) {
             DoRotation(Vector3.up);
-        } else if (Input.GetKeyDown(KeyCode.S)) {
+        } else if (dynamicMousePosDelta.y < -mousePosTriggerOffset) {
             DoRotation(Vector3.left);
-        } else if (Input.GetKeyDown(KeyCode.D)) {
+        } else if (dynamicMousePosDelta.x > mousePosTriggerOffset) {
             DoRotation(Vector3.down);
         }
     }
 
     private void DoRotation(Vector3 _axis) {
+        UnReadyRotation();
+
         canTween = false;
         var _currentRotation = machineGameObject.transform.rotation.eulerAngles;
         LeanTween.rotateAround(machineGameObject, _axis, 90, rotationTime)
             .setEase(rotationCurve)
-            .setOnComplete(() => canTween = true);
+            .setOnComplete(EndRotation);
+    }
+
+    private void EndRotation() {
+        canTween = true;
+    }
+
+    private void ReadyRotation() {
+        rotationReady = true;
+        machineFollow.SetCanFollowDynamic(false);
+        staticMousePos = cam.ScreenToViewportPoint(Input.mousePosition);
+    }
+
+    private void UnReadyRotation() {
+        rotationReady = false;
+        machineFollow.SetCanFollowDynamic(true);
+        staticMousePos = Vector3.zero;
     }
 }
