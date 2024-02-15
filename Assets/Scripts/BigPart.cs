@@ -3,11 +3,7 @@ using UnityEngine;
 
 public class BigPart : Part
 {
-    [SerializeField]
     private float orbitTime = 5.0f;
-
-    [SerializeField]
-    Transform plugTransform;
 
     Sequence Orbit;
     float SnapDuration = 0.5f;
@@ -16,7 +12,12 @@ public class BigPart : Part
     float screenMax;
     float screenBuffer = 1.5f;
 
-    void Start()
+    private void Start()
+    {
+        StartBehaviour();
+    }
+
+    public override void StartBehaviour()
     {
         screenMin = Camera.main.ViewportToWorldPoint(Vector3.zero).x - screenBuffer;
         screenMax = Camera.main.ViewportToWorldPoint(Vector3.one).x + screenBuffer;
@@ -31,10 +32,10 @@ public class BigPart : Part
     public override void Snap(Transform socketTransform)
     {
         Orbit.Kill();
-        plugTransform.parent = null;
-        plugTransform.parent = socketTransform;
+        transform.parent = null;
+        transform.parent = socketTransform;
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(plugTransform.DOLocalMove(Vector3.zero, SnapDuration))
-                .Join(plugTransform.DORotateQuaternion(socketTransform.rotation, SnapDuration));
+        sequence.Append(transform.DOLocalMove(Vector3.zero, SnapDuration))
+                .Join(transform.DORotateQuaternion(socketTransform.rotation, SnapDuration));
     }
 }

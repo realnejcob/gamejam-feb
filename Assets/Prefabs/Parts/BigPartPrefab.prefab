@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1455422555298980349}
   m_Layer: 0
   m_Name: BigPartPrefab
-  m_TagString: Untagged
+  m_TagString: Big
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,8 +46,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a417c20fc319496408a4471ff50cc399, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  orbitTime: 5
-  plugTransform: {fileID: 8253861733283750743}
 --- !u!65 &1455422555298980349
 BoxCollider:
   m_ObjectHideFlags: 0

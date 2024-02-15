@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2871143665851110922}
   m_Layer: 0
   m_Name: socket_small_top_left
-  m_TagString: SmallSocket
+  m_TagString: Small
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 6939897737145693090}
   m_Layer: 0
   m_Name: socket_big_front
-  m_TagString: BigSocket
+  m_TagString: Big
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -176,7 +176,7 @@ GameObject:
   - component: {fileID: 5905510610306808099}
   m_Layer: 0
   m_Name: socket_small_top_right
-  m_TagString: SmallSocket
+  m_TagString: Small
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -257,7 +257,7 @@ GameObject:
   - component: {fileID: 8659783614178898249}
   m_Layer: 0
   m_Name: socket_big_back
-  m_TagString: BigSocket
+  m_TagString: Big
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -514,7 +514,7 @@ GameObject:
   - component: {fileID: 1567786332131784020}
   m_Layer: 0
   m_Name: socket_small_bottom_right
-  m_TagString: SmallSocket
+  m_TagString: Small
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -659,7 +659,7 @@ GameObject:
   - component: {fileID: 2655698358309808524}
   m_Layer: 0
   m_Name: socket_small_bottom_left
-  m_TagString: SmallSocket
+  m_TagString: Small
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

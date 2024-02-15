@@ -4,8 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - BigSocket
-  - SmallSocket
+  - Big
+  - Small
   layers:
   - Default
   - TransparentFX

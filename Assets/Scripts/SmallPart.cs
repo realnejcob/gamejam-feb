@@ -16,7 +16,12 @@ public class SmallPart : Part
     float screenMax;
     float screenBuffer = 1.5f;
 
-    void Start()
+    private void Start()
+    {
+        StartBehaviour();
+    }
+
+    public override void StartBehaviour()
     {
         screenMin = Camera.main.ViewportToWorldPoint(Vector3.zero).x - screenBuffer;
         screenMax = Camera.main.ViewportToWorldPoint(Vector3.one).x + screenBuffer;

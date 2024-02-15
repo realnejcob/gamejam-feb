@@ -39,11 +39,7 @@ public class PartAttractor : MonoBehaviour
                 }
 
                 // Check big vs small
-                if (helper.tag == "BigSocket" && part is BigPart)
-                {
-                    part.Snap(helper.transform);
-                }
-                else if (helper.tag == "SmallSocket" && part is SmallPart)
+                if (helper.tag == part.tag)
                 {
                     part.Snap(helper.transform);
                 }
