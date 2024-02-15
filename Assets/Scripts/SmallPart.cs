@@ -1,7 +1,7 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using UnityEngine;
 
-public class BigPart : Part
+public class SmallPart : Part
 {
     [SerializeField]
     private float orbitTime = 5.0f;
