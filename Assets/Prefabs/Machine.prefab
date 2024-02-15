@@ -286,6 +286,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  machineFollow: {fileID: 7002829936479481913}
 --- !u!114 &7002829936479481913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,7 +299,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df5a6b8afaf9da0408f5948c591a0d50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
   smoothTime: 0.3
   velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &7867691101500055122
