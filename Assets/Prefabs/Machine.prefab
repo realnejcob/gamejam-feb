@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3852885773134360089}
   - component: {fileID: 205732671231899721}
+  - component: {fileID: 5101440617951300011}
   m_Layer: 0
   m_Name: socket_small_top_left
   m_TagString: SmallSocket
@@ -53,6 +54,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.20348045, y: 0.19578934, z: 0.20472646}
   m_Center: {x: 0, y: 0.1, z: -0.1}
+--- !u!114 &5101440617951300011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2230162054818747874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf6739aff3555f49aa63ccc012a9903, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTriggered: 0
 --- !u!1 &2278911075356190490
 GameObject:
   m_ObjectHideFlags: 0
@@ -63,6 +77,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6936456796768697739}
   - component: {fileID: 6007738687611792742}
+  - component: {fileID: 1586917890403068741}
   m_Layer: 0
   m_Name: socket_big_front
   m_TagString: BigSocket
@@ -106,6 +121,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.20719221, y: 0.40494537, z: 0.20166302}
   m_Center: {x: 0.0024024993, y: -0.000000029802322, z: -0.098137975}
+--- !u!114 &1586917890403068741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2278911075356190490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf6739aff3555f49aa63ccc012a9903, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTriggered: 0
 --- !u!1 &2463017197679931940
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,6 +144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2481024029005164936}
   - component: {fileID: 429409807964791408}
+  - component: {fileID: 6696935291709810226}
   m_Layer: 0
   m_Name: socket_small_top_right
   m_TagString: SmallSocket
@@ -159,6 +188,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.20348042, y: 0.19578934, z: 0.20024395}
   m_Center: {x: 0, y: 0.1, z: -0.15}
+--- !u!114 &6696935291709810226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2463017197679931940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf6739aff3555f49aa63ccc012a9903, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTriggered: 0
 --- !u!1 &3930786306485089133
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,6 +211,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4020661719005732944}
   - component: {fileID: 3405946928877420942}
+  - component: {fileID: 1015339446652251218}
   m_Layer: 0
   m_Name: socket_big_back
   m_TagString: BigSocket
@@ -212,6 +255,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.20719221, y: 0.40494537, z: 0.20166302}
   m_Center: {x: -0.002402499, y: -0.000000029802322, z: -0.1}
+--- !u!114 &1015339446652251218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3930786306485089133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf6739aff3555f49aa63ccc012a9903, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTriggered: 0
 --- !u!1 &4903647008653863748
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,8 +279,8 @@ GameObject:
   - component: {fileID: 1890988654765559837}
   - component: {fileID: 1097970522816999095}
   - component: {fileID: 7002829936479481913}
-  - component: {fileID: 7867691101500055122}
-  - component: {fileID: 5339116800578586353}
+  - component: {fileID: 8222123108771929184}
+  - component: {fileID: 2429232592627024675}
   m_Layer: 0
   m_Name: Machine
   m_TagString: Untagged
@@ -246,12 +302,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1278603602472281044}
-  - {fileID: 6936456796768697739}
-  - {fileID: 4020661719005732944}
-  - {fileID: 2481024029005164936}
-  - {fileID: 8146234805326663997}
-  - {fileID: 3852885773134360089}
-  - {fileID: 1369969024649075534}
   - {fileID: 221604936344678410}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -341,6 +391,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smoothTime: 0.3
+--- !u!114 &8222123108771929184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4903647008653863748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 550e9bd0159d0434a9f4fb2e1fa63c00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionHelpers:
+  - {fileID: 1586917890403068741}
+  - {fileID: 1015339446652251218}
+  - {fileID: 6696935291709810226}
+  - {fileID: 5597311724706092032}
+  - {fileID: 5101440617951300011}
+  - {fileID: 223886934118612941}
+--- !u!54 &2429232592627024675
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4903647008653863748}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &5321136288966004878
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,6 +447,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8146234805326663997}
   - component: {fileID: 5869043024338347681}
+  - component: {fileID: 5597311724706092032}
   m_Layer: 0
   m_Name: socket_small_bottom_right
   m_TagString: SmallSocket
@@ -394,6 +491,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.20348045, y: 0.19578934, z: 0.20472646}
   m_Center: {x: 0.1411915, y: -0.1, z: 0.0028241873}
+--- !u!114 &5597311724706092032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5321136288966004878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf6739aff3555f49aa63ccc012a9903, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTriggered: 0
 --- !u!1 &5422789029934392052
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,6 +546,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1369969024649075534}
   - component: {fileID: 1134033918782985272}
+  - component: {fileID: 223886934118612941}
   m_Layer: 0
   m_Name: socket_small_bottom_left
   m_TagString: SmallSocket
@@ -479,6 +590,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.20348045, y: 0.19578934, z: 0.20472646}
   m_Center: {x: 0, y: -0.1, z: -0.1}
+--- !u!114 &223886934118612941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8945316824356373986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf6739aff3555f49aa63ccc012a9903, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTriggered: 0
 --- !u!1001 &1599967877582570559
 PrefabInstance:
   m_ObjectHideFlags: 0
