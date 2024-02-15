@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class BigPart : Part
 {
-    [SerializeField] private float orbitTime = 5.0f;
+    [SerializeField]
+    private float orbitTime = 5.0f;
 
     [SerializeField]
     Transform plugTransform;
@@ -34,8 +35,7 @@ public class BigPart : Part
         plugTransform.parent = socketTransform;
         Sequence sequence = DOTween.Sequence();
         sequence.Append(plugTransform.DOLocalMove(Vector3.zero, SnapDuration))
-                .Join(plugTransform.DORotateQuaternion(socketTransform.rotation, SnapDuration))
-                .AppendCallback(() => Destroy(gameObject));
+                .Join(plugTransform.DORotateQuaternion(socketTransform.rotation, SnapDuration));
     }
 }
 
