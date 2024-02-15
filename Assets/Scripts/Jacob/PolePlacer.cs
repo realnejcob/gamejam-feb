@@ -23,7 +23,7 @@ public class PolePlacer : MonoBehaviour {
         }
 
         var leftPos = cam.ScreenToWorldPoint(new Vector3(0, 0));
-        var totalScreenWidthDist = Mathf.Abs(leftPos.x) * 2;
+        var totalScreenWidthDist = (Mathf.Abs(leftPos.x) * 2) + 0.25f;
         poles[0].position = new Vector3(-totalScreenWidthDist / 2, poles[0].position.y, totalScreenWidthDist / 2);
         poles[1].position = new Vector3(totalScreenWidthDist / 2, poles[1].position.y, totalScreenWidthDist / 2);
         poles[2].position = new Vector3(-totalScreenWidthDist / 2, poles[2].position.y, -totalScreenWidthDist / 2);

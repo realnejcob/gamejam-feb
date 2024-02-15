@@ -101,10 +101,10 @@ public class Machine : MonoBehaviour {
 
     private void StartRotateEffect(Vector3 _axis) {
         var dir = _axis.y;
-        var baseRotateSpeed = 1;
+        var baseRotateSpeed = 1.5f;
 
         rotateEffect.transform.localScale = Vector3.one;
-        var time = rotationTime * 2;
+        var time = rotationTime * 1;
 
         var mat = rotateEffect.GetComponentInChildren<MeshRenderer>().material;
         mat.SetFloat("_Amount_X", dir * baseRotateSpeed);
