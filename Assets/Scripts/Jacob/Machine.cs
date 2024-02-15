@@ -20,7 +20,7 @@ public class Machine : MonoBehaviour {
     private float mousePosTriggerOffset = 0.015f;
 
     [Header("Effects:")]
-    [SerializeField] private MeshRenderer rotateEffect;
+    [SerializeField] private GameObject rotateEffect;
     [SerializeField] private AnimationCurve rotateEffectCurve;
 
 
@@ -80,7 +80,7 @@ public class Machine : MonoBehaviour {
                 CheckAvailableSockets();
             });
 
-        StartRotateEffect();
+        StartRotateEffect(_axis);
     }
 
     private void EndRotation() {
@@ -99,14 +99,26 @@ public class Machine : MonoBehaviour {
         staticMousePos = Vector3.zero;
     }
 
-    private LTDescr StartRotateEffect() {
-        var mat = rotateEffect.material;
-        return LeanTween.value(0,1,rotationTime * 0.9f)
+    private void StartRotateEffect(Vector3 _axis) {
+        var dir = _axis.y;
+        var baseRotateSpeed = 1;
+
+        rotateEffect.transform.localScale = Vector3.one;
+        var time = rotationTime * 2;
+
+        var mat = rotateEffect.GetComponentInChildren<MeshRenderer>().material;
+        mat.SetFloat("_Amount_X", dir * baseRotateSpeed);
+
+        LeanTween.value(0,1, time)
             .setEase(rotateEffectCurve)
             .setOnUpdate((float t) => {
-                var value = Mathf.Lerp(0, 1, t);
-                mat.SetFloat("_Alpha", value);
+
+                var _newAlpha = Mathf.Lerp(0, 1, t);
+                mat.SetFloat("_Alpha", _newAlpha);
         });
+
+        LeanTween.scale(rotateEffect, Vector3.one * 1.1f, time)
+            .setEase(rotationCurve);
     }
 
     private void CheckAvailableSockets() {

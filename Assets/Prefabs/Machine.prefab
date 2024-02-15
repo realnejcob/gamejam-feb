@@ -223,8 +223,6 @@ GameObject:
   - component: {fileID: 1890988654765559837}
   - component: {fileID: 1097970522816999095}
   - component: {fileID: 7002829936479481913}
-  - component: {fileID: 7867691101500055122}
-  - component: {fileID: 5339116800578586353}
   m_Layer: 0
   m_Name: Machine
   m_TagString: Untagged
@@ -246,12 +244,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1278603602472281044}
-  - {fileID: 6936456796768697739}
-  - {fileID: 4020661719005732944}
-  - {fileID: 2481024029005164936}
-  - {fileID: 8146234805326663997}
-  - {fileID: 3852885773134360089}
-  - {fileID: 1369969024649075534}
   - {fileID: 221604936344678410}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -268,6 +260,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   machineGameObject: {fileID: 1942550757305055598}
+  sockets:
+  - {fileID: 2278911075356190490}
+  - {fileID: 3930786306485089133}
+  - {fileID: 2463017197679931940}
+  - {fileID: 5321136288966004878}
+  - {fileID: 2230162054818747874}
+  - {fileID: 8945316824356373986}
   rotationTime: 0.2
   rotationCurve:
     serializedVersion: 2
@@ -294,7 +293,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   machineFollow: {fileID: 7002829936479481913}
-  rotateEffect: {fileID: 5705060854171143837}
+  rotateEffect: {fileID: 6133945217402268844}
   rotateEffectCurve:
     serializedVersion: 2
     m_Curve:
@@ -409,7 +408,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &221604936344678410
 Transform:
   m_ObjectHideFlags: 0
@@ -418,13 +417,45 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5422789029934392052}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.92}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5531724948026933983}
+  m_Father: {fileID: 1890988654765559837}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6133945217402268844
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5531724948026933983}
+  m_Layer: 0
+  m_Name: RotationEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5531724948026933983
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6133945217402268844}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6874566995623572978}
-  m_Father: {fileID: 1890988654765559837}
+  m_Father: {fileID: 221604936344678410}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8945316824356373986
 GameObject:
@@ -1150,7 +1181,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 221604936344678410}
+    m_TransformParent: {fileID: 5531724948026933983}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 421e1d99f9f4c4f75bc5cf41eab51575,
         type: 3}
@@ -1232,12 +1263,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 421e1d99f9f4c4f75bc5cf41eab51575, type: 3}
---- !u!23 &5705060854171143837 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 421e1d99f9f4c4f75bc5cf41eab51575,
-    type: 3}
-  m_PrefabInstance: {fileID: 6408032102863409689}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6874566995623572978 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 421e1d99f9f4c4f75bc5cf41eab51575,
