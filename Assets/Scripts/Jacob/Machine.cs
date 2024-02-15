@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Machine : MonoBehaviour {
     [SerializeField] private GameObject machineGameObject;
+    [SerializeField] private List<GameObject> sockets = new List<GameObject>();
 
     [SerializeField] private float rotationTime = 0.5f;
     [SerializeField] private AnimationCurve rotationCurve;
@@ -25,6 +26,10 @@ public class Machine : MonoBehaviour {
 
     private void Awake() {
         cam = Camera.main;
+    }
+
+    private void Start() {
+        CheckAvailableSockets();
     }
 
     void Update() {
@@ -51,11 +56,11 @@ public class Machine : MonoBehaviour {
         var dynamicMousePosDelta = dynamicMousePos - staticMousePos;
 
         if (dynamicMousePosDelta.y > mousePosTriggerOffset) {
-            DoRotation(Vector3.right);
+            //DoRotation(Vector3.right);
         } else if (dynamicMousePosDelta.x < -mousePosTriggerOffset) {
             DoRotation(Vector3.up);
         } else if (dynamicMousePosDelta.y < -mousePosTriggerOffset) {
-            DoRotation(Vector3.left);
+            //DoRotation(Vector3.left);
         } else if (dynamicMousePosDelta.x > mousePosTriggerOffset) {
             DoRotation(Vector3.down);
         }
@@ -63,12 +68,17 @@ public class Machine : MonoBehaviour {
 
     private void DoRotation(Vector3 _axis) {
         UnReadyRotation();
+        DisableAllSockets();
 
         canTween = false;
+
         var _currentRotation = machineGameObject.transform.rotation.eulerAngles;
         LeanTween.rotateAround(machineGameObject, _axis, 90, rotationTime)
             .setEase(rotationCurve)
-            .setOnComplete(EndRotation);
+            .setOnComplete(()=> {
+                EndRotation();
+                CheckAvailableSockets();
+            });
 
         StartRotateEffect();
     }
@@ -97,5 +107,24 @@ public class Machine : MonoBehaviour {
                 var value = Mathf.Lerp(0, 1, t);
                 mat.SetFloat("_Alpha", value);
         });
+    }
+
+    private void CheckAvailableSockets() {
+        for (int i = 0; i < sockets.Count; i++) {
+            var dot = Vector3.Dot(cam.transform.forward, sockets[i].transform.forward);
+            var threshold = 0.1f;
+
+            if (dot >= -threshold && dot <= threshold) {
+                sockets[i].SetActive(true);
+            } else {
+                sockets[i].SetActive(false);
+            }
+        }
+    }
+
+    private void DisableAllSockets() {
+        foreach (var socket in sockets) {
+            socket.SetActive(false);
+        }
     }
 }
