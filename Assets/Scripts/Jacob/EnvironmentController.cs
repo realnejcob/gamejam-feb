@@ -14,6 +14,8 @@ public class EnvironmentController : MonoBehaviour {
     private Camera cam;
     private float initCamSize;
 
+    [SerializeField] private GameObject skyStarEnvironment;
+
     private bool isLookingUp = false;
 
     private void Awake() {
@@ -30,12 +32,18 @@ public class EnvironmentController : MonoBehaviour {
             return;
 
         if (Input.GetKeyDown(KeyCode.A)) {
-            DoRotation(Vector3.up);
+            if (isLookingUp)
+                return;
+
+            DoRotation(Vector3.up, rotationTime);
             DoZoom();
 
             IncrementEnvironmentIndex(-1);
         } else if (Input.GetKeyDown(KeyCode.D)) {
-            DoRotation(Vector3.down);
+            if (isLookingUp)
+                return;
+
+            DoRotation(Vector3.down, rotationTime);
             DoZoom();
 
             IncrementEnvironmentIndex(1);
@@ -44,20 +52,20 @@ public class EnvironmentController : MonoBehaviour {
                 return;
 
             isLookingUp = true;
-            DoRotation(Vector3.right);
+            DoRotation(Vector3.right, rotationTime * 1.5f);
         } else if (Input.GetKeyDown(KeyCode.S)) {
             if (!isLookingUp)
                 return;
 
             isLookingUp = false;
-            DoRotation(Vector3.left);
+            DoRotation(Vector3.left, rotationTime*1.5f);
         }
     }
 
-    private void DoRotation(Vector3 _axis) {
+    private void DoRotation(Vector3 _axis, float _rotationTime) {
         canTween = false;
 
-        LeanTween.rotateAround(gameObject, _axis, 90, rotationTime)
+        LeanTween.rotateAround(gameObject, _axis, 90, _rotationTime)
             .setEase(rotationCurve)
             .setOnComplete(() => canTween = true);
     }
