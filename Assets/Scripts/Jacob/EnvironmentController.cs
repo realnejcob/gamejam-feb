@@ -14,6 +14,8 @@ public class EnvironmentController : MonoBehaviour {
     private Camera cam;
     private float initCamSize;
 
+    private bool isLookingUp = false;
+
     private void Awake() {
         cam = Camera.main;
         initCamSize = cam.orthographicSize;
@@ -29,23 +31,42 @@ public class EnvironmentController : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.A)) {
             DoRotation(Vector3.up);
+            DoZoom();
+
             IncrementEnvironmentIndex(-1);
         } else if (Input.GetKeyDown(KeyCode.D)) {
             DoRotation(Vector3.down);
+            DoZoom();
+
             IncrementEnvironmentIndex(1);
+        } else if (Input.GetKeyDown(KeyCode.W)) {
+            if (isLookingUp)
+                return;
+
+            isLookingUp = true;
+            DoRotation(Vector3.right);
+        } else if (Input.GetKeyDown(KeyCode.S)) {
+            if (!isLookingUp)
+                return;
+
+            isLookingUp = false;
+            DoRotation(Vector3.left);
         }
     }
 
     private void DoRotation(Vector3 _axis) {
         canTween = false;
-        var _currentRotation = gameObject.transform.rotation.eulerAngles;
-        LeanTween.value(gameObject, 0, 1, rotationTime)
-            .setOnUpdate((float t) => {
-                cam.orthographicSize = Mathf.Lerp(initCamSize, zoomCamSize, zoomCurve.Evaluate(t));
-            });
+
         LeanTween.rotateAround(gameObject, _axis, 90, rotationTime)
             .setEase(rotationCurve)
             .setOnComplete(() => canTween = true);
+    }
+
+    private void DoZoom() {
+        LeanTween.value(gameObject, 0, 1, rotationTime)
+        .setOnUpdate((float t) => {
+            cam.orthographicSize = Mathf.Lerp(initCamSize, zoomCamSize, zoomCurve.Evaluate(t));
+        });
     }
 
     private void IncrementEnvironmentIndex(int amt) {
