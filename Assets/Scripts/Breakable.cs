@@ -31,7 +31,7 @@ public class Breakable : MonoBehaviour {
         transform.Rotate(Vector3.up, rotYSpeed);
         transform.Rotate(Vector3.forward, rotZSpeed);
 
-        transform.localPosition = Vector3.SmoothDamp(transform.position, currentTarget.position + sineMovement, ref velocity, 0.5f);
+        transform.localPosition = Vector3.SmoothDamp(transform.localPosition, currentTarget.localPosition + sineMovement, ref velocity, 0.5f);
     }
 
     private void TryDetach() {
@@ -67,7 +67,7 @@ public class Breakable : MonoBehaviour {
     }
 
     private Transform GetRandomTarget() {
-        var newTarget = breakableTargetsGroup.GetComponentsInChildren<Transform>()[GetRandomTargetIndex()];
+        var newTarget = breakableTargetsGroup.GetChild(GetRandomTargetIndex());
         return newTarget.transform;
     }
 

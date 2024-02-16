@@ -178,4 +178,26 @@ public class Machine : MonoBehaviour
             staticMousePos = cam.ScreenToViewportPoint(Input.mousePosition);
         }
     }
+
+    public void PingRotation() {
+        LeanTween.value(gameObject, 0, 1, 1)
+            .setOnUpdate((float t) => {
+                var newRot = Vector3.Lerp(GetNoise(), Vector3.zero, t);
+                transform.rotation = Quaternion.Euler(newRot);
+            })
+            .setEaseOutQuint();
+    }
+
+    private Vector3 GetNoise() {
+        var seed = 1000;
+        var frequency = 5;
+        var maximumTranslationShake = Vector3.one * 25;
+
+        return new Vector3(
+            maximumTranslationShake.x * (Mathf.PerlinNoise(seed, Time.time * frequency) * 2 - 1),
+            maximumTranslationShake.y * (Mathf.PerlinNoise(seed + 1, Time.time * frequency) * 2 - 1),
+            maximumTranslationShake.z * (Mathf.PerlinNoise(seed + 2, Time.time * frequency) * 2 - 1)
+        );
+    }
+
 }
