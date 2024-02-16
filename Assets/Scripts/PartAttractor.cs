@@ -83,6 +83,10 @@ public class PartAttractor : MonoBehaviour
         GetComponent<Machine>().PingRotation();
 
         registeredParts.Add(part);
-        print(registeredParts.Count + " parts registered.");
+    }
+
+    public void UnRegisterParts()
+    {
+        registeredParts.Clear();
     }
 }
