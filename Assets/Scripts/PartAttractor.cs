@@ -81,6 +81,10 @@ public class PartAttractor : MonoBehaviour
     private void RegisterPart(Part part)
     {
         registeredParts.Add(part);
-        print(registeredParts.Count + " parts registered.");
+    }
+
+    public void UnRegisterParts()
+    {
+        registeredParts.Clear();
     }
 }
