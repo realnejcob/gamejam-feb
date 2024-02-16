@@ -8,6 +8,7 @@ public class SmallPart_Earth : Part
     Transform plugTransform;
 
     LTDescr moveTween;
+    LTDescr rotateTween;
 
     float SnapDuration = 0.5f;
 
@@ -26,7 +27,7 @@ public class SmallPart_Earth : Part
         screenMax = Camera.main.ViewportToWorldPoint(Vector3.one).x + screenBuffer;
 
         var radius = 0.5f;
-        var initialPosition = transform.position;
+        var initialPosition = transform.localPosition;
         var modifier = 0f;
 
         LeanTween.value(0, 1, 3)
@@ -42,20 +43,20 @@ public class SmallPart_Earth : Part
             .setOnUpdate((float t) => {
                 var newX = initialPosition.x + (Mathf.Sin(t * (Mathf.PI * 2)) * radius * modifier);
                 var newY = initialPosition.y +(Mathf.Cos(t * (Mathf.PI * 2)) * radius * modifier);
-                transform.position = new Vector3(newX, newY, initialPosition.z);
+                transform.localPosition = new Vector3(newX, newY, initialPosition.z);
             })
             .setLoopCount(0);
     }
 
 
     public override void Snap(Transform socketTransform) {
-        print("SNAP");
-
         LeanTween.cancel(moveTween.uniqueId);
 
         plugTransform.parent = null;
         plugTransform.parent = socketTransform;
         plugTransform.localPosition = Vector3.zero;
         plugTransform.rotation = socketTransform.rotation;
+
+        TryInvokeSnappedEvent();
     }
 }
