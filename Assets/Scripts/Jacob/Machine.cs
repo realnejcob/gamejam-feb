@@ -191,7 +191,7 @@ public class Machine : MonoBehaviour
     private Vector3 GetNoise() {
         var seed = 1000;
         var frequency = 5;
-        var maximumTranslationShake = Vector3.one * 25;
+        var maximumTranslationShake = Vector3.one * 35;
 
         return new Vector3(
             maximumTranslationShake.x * (Mathf.PerlinNoise(seed, Time.time * frequency) * 2 - 1),

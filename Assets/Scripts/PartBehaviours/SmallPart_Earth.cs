@@ -16,6 +16,8 @@ public class SmallPart_Earth : Part
     float screenMax;
     float screenBuffer = 1.5f;
 
+    Vector3 targetRotation = new Vector3(45, 90, 0);
+
     private void Start()
     {
         StartBehaviour();
@@ -36,7 +38,7 @@ public class SmallPart_Earth : Part
             })
             .setEaseInOutSine();
 
-        LeanTween.rotate(gameObject, new Vector3(45, 90, 0), 3)
+        LeanTween.rotate(gameObject, targetRotation, 3)
             .setEaseInOutSine();
 
         moveTween = LeanTween.value(0, 1, 3)
@@ -46,11 +48,23 @@ public class SmallPart_Earth : Part
                 transform.localPosition = new Vector3(newX, newY, initialPosition.z);
             })
             .setLoopCount(0);
+
+        rotateTween = RotateTween();
     }
 
+    private LTDescr RotateTween() {
+        return LeanTween.rotateAroundLocal(gameObject, Vector3.right, 90, 0.5f)
+            .setDelay(3.5f)
+            .setEaseInOutSine()
+            .setOnComplete(() => {
+                targetRotation += Vector3.right * 90;
+                rotateTween = RotateTween();
+            });
+    }
 
     public override void Snap(Transform socketTransform) {
         LeanTween.cancel(moveTween.uniqueId);
+        LeanTween.cancel(rotateTween.uniqueId);
 
         plugTransform.parent = null;
         plugTransform.parent = socketTransform;
