@@ -110,15 +110,13 @@ public class Machine : MonoBehaviour
     private void ReadyRotation()
     {
         rotationReady = true;
-        machineFollow.SetCanFollowDynamic(false);
-        staticMousePos = cam.ScreenToViewportPoint(Input.mousePosition);
+        SetFollowMouse(false);
     }
 
     private void UnReadyRotation()
     {
         rotationReady = false;
-        machineFollow.SetCanFollowDynamic(true);
-        staticMousePos = Vector3.zero;
+        SetFollowMouse(true);
     }
 
     private void StartRotateEffect(Vector3 _axis)
@@ -168,6 +166,16 @@ public class Machine : MonoBehaviour
         foreach (var socket in sockets)
         {
             socket.GetComponent<Collider>().enabled = false;
+        }
+    }
+
+    public void SetFollowMouse(bool value) {
+        if (value) {
+            machineFollow.SetCanFollowDynamic(true);
+            staticMousePos = Vector3.zero;
+        } else {
+            machineFollow.SetCanFollowDynamic(false);
+            staticMousePos = cam.ScreenToViewportPoint(Input.mousePosition);
         }
     }
 }
