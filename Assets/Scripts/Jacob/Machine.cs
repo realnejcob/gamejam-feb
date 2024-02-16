@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,6 +23,7 @@ public class Machine : MonoBehaviour
     [SerializeField] private GameObject rotateEffect;
     [SerializeField] private AnimationCurve rotateEffectCurve;
 
+    public Action BreakAction;
 
     private void Awake()
     {
@@ -69,6 +71,7 @@ public class Machine : MonoBehaviour
         else if (dynamicMousePosDelta.x < -mousePosTriggerOffset)
         {
             DoRotation(Vector3.up);
+            BreakAction?.Invoke();
         }
         else if (dynamicMousePosDelta.y < -mousePosTriggerOffset)
         {
@@ -77,11 +80,11 @@ public class Machine : MonoBehaviour
         else if (dynamicMousePosDelta.x > mousePosTriggerOffset)
         {
             DoRotation(Vector3.down);
+            BreakAction?.Invoke();
         }
     }
 
-    private void DoRotation(Vector3 _axis)
-    {
+    private void DoRotation(Vector3 _axis) {
         UnReadyRotation();
         DisableAllSockets();
 

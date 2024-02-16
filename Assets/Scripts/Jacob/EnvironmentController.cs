@@ -83,4 +83,8 @@ public class EnvironmentController : MonoBehaviour {
             currentEnviromentIndex = 3;
         currentEnviromentIndex = currentEnviromentIndex % 4;
     }
+
+    public bool GetIsLookingUp() {
+        return isLookingUp;
+    }
 }
