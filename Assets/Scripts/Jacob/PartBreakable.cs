@@ -44,10 +44,22 @@ public class PartBreakable : MonoBehaviour {
         var direction = heading / distance;
         var dirNorm = direction.normalized;
 
+        var time = 4;
         var distAmount = 2;
 
-        LeanTween.scale(gameObject, Vector3.zero, 3);
-        LeanTween.move(gameObject, transform.position - new Vector3(dirNorm.x * distAmount, dirNorm.y * distAmount, -5), 3)
-            .setEaseOutQuint();
+        var tweens = new List<LTDescr>();
+        tweens.Add(LeanTween.scale(gameObject, Vector3.zero, time*1.5f)
+            .setEaseOutQuint()
+            .setOnComplete(()=>gameObject.SetActive(false)));
+
+        tweens.Add(LeanTween.move(gameObject, transform.position - new Vector3(dirNorm.x * distAmount, dirNorm.y * distAmount, -5), time)
+            .setEaseOutQuint());
+
+        var randomAxis = new Vector3(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
+        tweens.Add(LeanTween.rotateAround(gameObject, randomAxis, 360, time));
+    }
+
+    public bool GetIsDetached() {
+        return isDetached;
     }
 }
