@@ -1,23 +1,48 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PartAttractor : MonoBehaviour
 {
     [SerializeField]
-    Transform socketTransform;
+    List<TriggerCollisionHelper> collisionHelpers = new List<TriggerCollisionHelper>();
 
-    // TODO: Extend to detect the correct socket, perhaps collider?
-    private void OnTriggerStay(Collider other)
+    private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            print("Hit: " + other.name);
-            Part remote;
-            remote = other.transform.root.GetComponent<Part>();
-            print("Part: " + remote.name);
-            if (remote != null)
+            for (int i = 0; i < collisionHelpers.Count; i++)
             {
-                print("Found part");
-                remote.Snap(socketTransform);
+                TriggerCollisionHelper helper = collisionHelpers[i];
+
+                // Check for trigger collision
+                if (helper.IsTriggered == false)
+                {
+                    continue;
+                }
+
+                var other = helper.GetOtherCollider;
+
+                Part part;
+                part = other.transform.root.GetComponent<Part>();
+
+                // Check for part script
+                if (part == null)
+                {
+                    continue;
+                }
+
+                // Check that direction is correct
+                float dot = Vector3.Dot(part.transform.forward, helper.transform.forward);
+                if (dot < 0.8)
+                {
+                    continue;
+                }
+
+                // Check big vs small
+                if (helper.tag == part.tag)
+                {
+                    part.Snap(helper.transform);
+                }
             }
         }
     }
