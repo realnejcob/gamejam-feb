@@ -14,8 +14,6 @@ public class EnvironmentController : MonoBehaviour {
     private Camera cam;
     private float initCamSize;
 
-    [SerializeField] private GameObject skyStarEnvironment;
-
     private bool isLookingUp = false;
 
     private void Awake() {

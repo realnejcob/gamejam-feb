@@ -18,7 +18,7 @@ RenderSettings:
   m_FogColor: {r: 0.06537023, g: 0.07091261, b: 0.122641504, a: 1}
   m_FogMode: 1
   m_FogDensity: 1
-  m_LinearFogStart: 5.09
+  m_LinearFogStart: 5
   m_LinearFogEnd: 11.41
   m_AmbientSkyColor: {r: 0, g: 0, b: 0, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
@@ -2200,7 +2200,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: -0.33
+  near clip plane: 0
   far clip plane: 1500
   field of view: 40
   orthographic: 1
