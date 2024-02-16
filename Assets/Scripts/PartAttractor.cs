@@ -12,7 +12,9 @@ public class PartAttractor : MonoBehaviour
     [SerializeField]
     List<TriggerCollisionHelper> collisionHelpers = new List<TriggerCollisionHelper>();
 
-    List<Part> RegisteredParts = new List<Part>();
+    List<Part> registeredParts = new List<Part>();
+
+    public List<Part> RegisteredParts => registeredParts;
 
     private void Update()
     {
@@ -31,7 +33,7 @@ public class PartAttractor : MonoBehaviour
                 var other = helper.GetOtherCollider;
 
                 Part part;
-                part = other.transform.root.GetComponent<Part>();
+                part = other.transform.GetComponent<Part>();
 
                 // Check for part script
                 if (part == null)
@@ -78,10 +80,7 @@ public class PartAttractor : MonoBehaviour
     }
     private void RegisterPart(Part part)
     {
-        RegisteredParts.Add(part);
-        print(RegisteredParts.Count + " parts registered.");
+        registeredParts.Add(part);
+        print(registeredParts.Count + " parts registered.");
     }
-
-
-
 }
