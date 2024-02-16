@@ -11,10 +11,19 @@ public class BigPart : Part
     float screenMin;
     float screenMax;
     float screenBuffer = 1.5f;
+    bool isActivated = true;
 
     private void Start()
     {
-        StartBehaviour();
+        if (isActivated)
+        {
+            StartBehaviour();
+        }
+    }
+
+    public void Deactivate()
+    {
+        isActivated = false;
     }
 
     public override void StartBehaviour()
@@ -36,6 +45,6 @@ public class BigPart : Part
         transform.parent = socketTransform;
         Sequence sequence = DOTween.Sequence();
         sequence.Append(transform.DOLocalMove(Vector3.zero, SnapDuration))
-                .Join(transform.DORotateQuaternion(socketTransform.rotation, SnapDuration));
+                .Join(transform.DORotateQuaternion(socketTransform.rotation, SnapDuration)).OnComplete(TryInvokeSnappedEvent);
     }
 }

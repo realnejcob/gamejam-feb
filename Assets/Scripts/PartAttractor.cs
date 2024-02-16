@@ -4,7 +4,15 @@ using UnityEngine;
 public class PartAttractor : MonoBehaviour
 {
     [SerializeField]
+    GameObject SmallPartPrefab;
+
+    [SerializeField]
+    GameObject BigPartPrefab;
+
+    [SerializeField]
     List<TriggerCollisionHelper> collisionHelpers = new List<TriggerCollisionHelper>();
+
+    List<Part> RegisteredParts = new List<Part>();
 
     private void Update()
     {
@@ -41,9 +49,39 @@ public class PartAttractor : MonoBehaviour
                 // Check big vs small
                 if (helper.tag == part.tag)
                 {
+                    part.SnappedEvent += RegisterPart;
                     part.Snap(helper.transform);
                 }
             }
         }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            for (int i = 0; i < collisionHelpers.Count; i++)
+            {
+                TriggerCollisionHelper helper = collisionHelpers[i];
+                if (helper.tag == "Small")
+                {
+                    var smallPart = Instantiate(SmallPartPrefab).GetComponent<SmallPart>();
+                    smallPart.Deactivate();
+                    smallPart.SnappedEvent += RegisterPart;
+                    smallPart.Snap(helper.transform);
+                }
+                else if (helper.tag == "Big")
+                {
+                    var bigPart = Instantiate(BigPartPrefab).GetComponent<BigPart>();
+                    bigPart.Deactivate();
+                    bigPart.SnappedEvent += RegisterPart;
+                    bigPart.Snap(helper.transform);
+                }
+            }
+        }
     }
+    private void RegisterPart(Part part)
+    {
+        RegisteredParts.Add(part);
+        print(RegisteredParts.Count + " parts registered.");
+    }
+
+
+
 }

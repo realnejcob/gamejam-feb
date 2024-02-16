@@ -16,9 +16,19 @@ public class SmallPart : Part
     float screenMax;
     float screenBuffer = 1.5f;
 
+    bool isActivated = true;
+
     private void Start()
     {
-        StartBehaviour();
+        if (isActivated)
+        {
+            StartBehaviour();
+        }
+    }
+
+    public void Deactivate()
+    {
+        isActivated = false;
     }
 
     public override void StartBehaviour()
@@ -40,6 +50,6 @@ public class SmallPart : Part
         plugTransform.parent = socketTransform;
         Sequence sequence = DOTween.Sequence();
         sequence.Append(plugTransform.DOLocalMove(Vector3.zero, SnapDuration))
-                .Join(plugTransform.DORotateQuaternion(socketTransform.rotation, SnapDuration));
+                .Join(plugTransform.DORotateQuaternion(socketTransform.rotation, SnapDuration)).OnComplete(TryInvokeSnappedEvent);
     }
 }

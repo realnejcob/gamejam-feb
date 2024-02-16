@@ -50,6 +50,6 @@ public class BigPartWater : Part
         transform.parent = socketTransform;
         Sequence sequence = DOTween.Sequence();
         sequence.Append(transform.DOLocalMove(Vector3.zero, SnapDuration))
-                .Join(transform.DORotateQuaternion(socketTransform.rotation, SnapDuration));
+                .Join(transform.DORotateQuaternion(socketTransform.rotation, SnapDuration)).OnComplete(TryInvokeSnappedEvent);
     }
 }
