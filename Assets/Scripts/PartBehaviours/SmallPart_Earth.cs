@@ -65,6 +65,7 @@ public class SmallPart_Earth : Part
     public override void Snap(Transform socketTransform) {
         LeanTween.cancel(moveTween.uniqueId);
         LeanTween.cancel(rotateTween.uniqueId);
+        transform.localRotation = Quaternion.Euler(targetRotation);
 
         plugTransform.parent = null;
         plugTransform.parent = socketTransform;

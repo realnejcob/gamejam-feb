@@ -8,6 +8,9 @@ public class PartBreakable : MonoBehaviour {
     private bool isColliding = false;
     private Vector3 triggerPosition = Vector3.zero;
 
+    [SerializeField] private float breakDistance = 2f;
+    [SerializeField] private float breakTime = 4f;
+
     private void OnTriggerEnter(Collider other) {
         if (other.transform.CompareTag("Player")) {
             isColliding = true;
@@ -44,19 +47,16 @@ public class PartBreakable : MonoBehaviour {
         var direction = heading / distance;
         var dirNorm = direction.normalized;
 
-        var time = 4;
-        var distAmount = 2;
-
         var tweens = new List<LTDescr>();
-        tweens.Add(LeanTween.scale(gameObject, Vector3.zero, time*1.5f)
+        tweens.Add(LeanTween.scale(gameObject, Vector3.zero, breakTime * 1.5f)
             .setEaseOutQuint()
             .setOnComplete(()=>gameObject.SetActive(false)));
 
-        tweens.Add(LeanTween.move(gameObject, transform.position - new Vector3(dirNorm.x * distAmount, dirNorm.y * distAmount, -5), time)
+        tweens.Add(LeanTween.move(gameObject, transform.position - new Vector3(dirNorm.x * breakDistance, dirNorm.y * breakDistance, -5), breakTime)
             .setEaseOutQuint());
 
         var randomAxis = new Vector3(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
-        tweens.Add(LeanTween.rotateAround(gameObject, randomAxis, 360, time));
+        tweens.Add(LeanTween.rotateAround(gameObject, randomAxis, 360, breakTime));
     }
 
     public bool GetIsDetached() {

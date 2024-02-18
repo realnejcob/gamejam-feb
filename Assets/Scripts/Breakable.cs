@@ -23,9 +23,9 @@ public class Breakable : MonoBehaviour {
     [SerializeField] private List<PartBreakable> partBreakables = new List<PartBreakable>();
     [SerializeField] private Part partReward;
 
-    [SerializeField] private ParticleSystem breakParticleSystem;
-
     private Machine machine;
+
+    private LTDescr pingTween;
 
     private void Awake() {
         machine = FindObjectOfType<Machine>();
@@ -57,25 +57,18 @@ public class Breakable : MonoBehaviour {
             var isDetached = partBreakable.Detatch();
             if (isDetached) {
                 TryDestroyBreakable();
-                breakParticleSystem.Play();
                 MoveTarget();
+                PingAnimation();
                 break;
             }
         }
     }
-
     private void TryDestroyBreakable() {
         foreach (var partBreakable in partBreakables) {
             if (!partBreakable.GetIsDetached()) {
                 return;
             }
         }
-
-        breakParticleSystem.transform.SetParent(transform.parent);
-        var emission = breakParticleSystem.main;
-        emission.stopAction = ParticleSystemStopAction.Destroy;
-
-        breakParticleSystem.Play();
 
         partReward.transform.SetParent(transform.parent);
         partReward.enabled = true;
@@ -90,6 +83,22 @@ public class Breakable : MonoBehaviour {
         }
 
         currentTarget = newTarget;
+    }
+
+    private void PingAnimation() {
+        if (pingTween != null)
+            LeanTween.cancel(gameObject, pingTween.uniqueId);
+
+        var _amt = 5;
+
+        pingTween = LeanTween.value(0, 1, 1)
+            .setOnUpdate((float t) => {
+                var mod = t * _amt;
+                realRotXSpeed = Mathf.Lerp(rotXSpeed + _amt, rotXSpeed, t);
+                realRotYSpeed = Mathf.Lerp(rotXSpeed + _amt, rotXSpeed, t);
+                realRotZSpeed = Mathf.Lerp(rotXSpeed + _amt, rotXSpeed, t);
+            })
+            .setEaseOutQuint();
     }
 
     private Transform GetRandomTarget() {

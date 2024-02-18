@@ -4950,7 +4950,6 @@ MonoBehaviour:
   - {fileID: 7633162965416400930}
   - {fileID: 5226563247054488348}
   partReward: {fileID: 1821694326859227506}
-  breakParticleSystem: {fileID: 7811947783123174926}
 --- !u!1001 &2020922078793348342
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5147,6 +5146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2aa8ce851f1016439700a0002cf6605, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  breakDistance: 1
+  breakTime: 4
 --- !u!64 &275275478442888408
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5193,6 +5194,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2aa8ce851f1016439700a0002cf6605, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  breakDistance: 1
+  breakTime: 4
 --- !u!64 &4495343902742460778
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5233,6 +5236,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2aa8ce851f1016439700a0002cf6605, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  breakDistance: 1
+  breakTime: 4
 --- !u!64 &5750321960709492556
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5273,6 +5278,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2aa8ce851f1016439700a0002cf6605, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  breakDistance: 1
+  breakTime: 4
 --- !u!64 &3509251586278350943
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5313,6 +5320,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2aa8ce851f1016439700a0002cf6605, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  breakDistance: 1
+  breakTime: 4
 --- !u!64 &5776710499758008975
 MeshCollider:
   m_ObjectHideFlags: 0
