@@ -1,8 +1,9 @@
-﻿using DG.Tweening;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class SmallPart_Earth : Part {
+public class BigPart_Earth : Part
+{
     [SerializeField]
     Transform plugTransform;
 
@@ -15,16 +16,13 @@ public class SmallPart_Earth : Part {
     float screenMax;
     float screenBuffer = 1.5f;
 
+    Vector3 targetRotation = new Vector3(45, 90, 0);
 
-    [SerializeField] private Vector3 targetRotation = new Vector3(45, 90, 0);
-
-    private void Start()
-    {
+    private void Start() {
         StartBehaviour();
     }
 
-    public override void StartBehaviour()
-    {
+    public override void StartBehaviour() {
         screenMin = Camera.main.ViewportToWorldPoint(Vector3.zero).x - screenBuffer;
         screenMax = Camera.main.ViewportToWorldPoint(Vector3.one).x + screenBuffer;
 
@@ -44,7 +42,7 @@ public class SmallPart_Earth : Part {
         moveTween = LeanTween.value(0, 1, 3)
             .setOnUpdate((float t) => {
                 var newX = initialPosition.x + (Mathf.Sin(t * (Mathf.PI * 2)) * radius * modifier);
-                var newY = initialPosition.y +(Mathf.Cos(t * (Mathf.PI * 2)) * radius * modifier);
+                var newY = initialPosition.y + (Mathf.Cos(t * (Mathf.PI * 2)) * radius * modifier);
                 transform.localPosition = new Vector3(newX, newY, initialPosition.z);
             })
             .setLoopCount(0);

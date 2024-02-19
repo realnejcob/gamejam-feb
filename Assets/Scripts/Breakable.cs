@@ -29,7 +29,7 @@ public class Breakable : MonoBehaviour {
 
     private void Awake() {
         machine = FindObjectOfType<Machine>();
-        machine.BreakAction += TryDetach;
+        machine.RotateAction += TryDetach;
     }
 
     private void Start() {
@@ -49,16 +49,18 @@ public class Breakable : MonoBehaviour {
         transform.Rotate(Vector3.up, realRotYSpeed);
         transform.Rotate(Vector3.forward, realRotZSpeed);
 
-        transform.localPosition = Vector3.SmoothDamp(transform.localPosition, currentTarget.localPosition + sineMovement, ref velocity, 0.5f);
+        transform.localPosition = Vector3.SmoothDamp(transform.localPosition, currentTarget.localPosition + sineMovement, ref velocity, 0.25f);
     }
 
     private void TryDetach() {
         foreach (var partBreakable in partBreakables) {
             var isDetached = partBreakable.Detatch();
             if (isDetached) {
-                TryDestroyBreakable();
-                MoveTarget();
+                machine.PingRotation(2, 5, Vector3.one * 35);
                 PingAnimation();
+                MoveTarget();
+
+                TryDestroyBreakable();
                 break;
             }
         }

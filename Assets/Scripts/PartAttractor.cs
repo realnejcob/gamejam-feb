@@ -80,7 +80,7 @@ public class PartAttractor : MonoBehaviour
     }
     private void RegisterPart(Part part)
     {
-        GetComponent<Machine>().PingRotation();
+        GetComponent<Machine>().PingRotation(1, 15, Vector3.one * 35);
 
         registeredParts.Add(part);
     }

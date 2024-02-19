@@ -23,7 +23,8 @@ public class Machine : MonoBehaviour
     [SerializeField] private GameObject rotateEffect;
     [SerializeField] private AnimationCurve rotateEffectCurve;
 
-    public Action BreakAction;
+    private LTDescr pingRotationTween = new LTDescr();
+    public Action RotateAction;
 
     private void Awake()
     {
@@ -70,8 +71,8 @@ public class Machine : MonoBehaviour
         }
         else if (dynamicMousePosDelta.x < -mousePosTriggerOffset)
         {
-            DoRotation(Vector3.up);
-            BreakAction?.Invoke();
+            DoRotation(Vector3.back);
+            RotateAction?.Invoke();
         }
         else if (dynamicMousePosDelta.y < -mousePosTriggerOffset)
         {
@@ -79,8 +80,8 @@ public class Machine : MonoBehaviour
         }
         else if (dynamicMousePosDelta.x > mousePosTriggerOffset)
         {
-            DoRotation(Vector3.down);
-            BreakAction?.Invoke();
+            DoRotation(Vector3.forward);
+            RotateAction?.Invoke();
         }
     }
 
@@ -91,7 +92,7 @@ public class Machine : MonoBehaviour
         canTween = false;
 
         var _currentRotation = machineGameObject.transform.rotation.eulerAngles;
-        LeanTween.rotateAround(machineGameObject, _axis, 90, rotationTime)
+        LeanTween.rotateAroundLocal(machineGameObject, _axis, 90, rotationTime)
             .setEase(rotationCurve)
             .setOnComplete(() =>
             {
@@ -99,7 +100,7 @@ public class Machine : MonoBehaviour
                 CheckAvailableSockets();
             });
 
-        StartRotateEffect(_axis);
+        StartRotateEffect(new Vector3(0, _axis.z * -1, 0));
     }
 
     private void EndRotation()
@@ -134,7 +135,6 @@ public class Machine : MonoBehaviour
             .setEase(rotateEffectCurve)
             .setOnUpdate((float t) =>
             {
-
                 var _newAlpha = Mathf.Lerp(0, 1, t);
                 mat.SetFloat("_Alpha", _newAlpha);
             });
@@ -179,19 +179,20 @@ public class Machine : MonoBehaviour
         }
     }
 
-    public void PingRotation() {
-        LeanTween.value(gameObject, 0, 1, 1)
+    public void PingRotation(float time, int freq, Vector3 amt) {
+        if (LeanTween.isTweening(pingRotationTween.uniqueId))
+                LeanTween.cancel(gameObject, pingRotationTween.uniqueId);
+
+        pingRotationTween = LeanTween.value(gameObject, 0, 1, time)
             .setOnUpdate((float t) => {
-                var newRot = Vector3.Lerp(GetNoise(), Vector3.zero, t);
-                transform.rotation = Quaternion.Euler(newRot);
+                var newRot = Vector3.Lerp(GetNoise(freq, amt), Vector3.zero, t);
+                transform.localRotation = Quaternion.Euler(newRot);
             })
             .setEaseOutQuint();
     }
 
-    private Vector3 GetNoise() {
+    private Vector3 GetNoise(int frequency, Vector3 maximumTranslationShake) {
         var seed = 1000;
-        var frequency = 5;
-        var maximumTranslationShake = Vector3.one * 35;
 
         return new Vector3(
             maximumTranslationShake.x * (Mathf.PerlinNoise(seed, Time.time * frequency) * 2 - 1),

@@ -27,6 +27,7 @@ public class ConsoleManager : MonoBehaviour {
     }
 
     private void ReloadScene() {
+        LeanTween.cancelAll();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
