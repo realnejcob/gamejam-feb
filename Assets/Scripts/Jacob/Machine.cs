@@ -22,8 +22,12 @@ public class Machine : MonoBehaviour
     [Header("Effects:")]
     [SerializeField] private GameObject rotateEffect;
     [SerializeField] private AnimationCurve rotateEffectCurve;
+    [SerializeField] private GameObject snapEffect;
+    [SerializeField] private AnimationCurve snapEffectCurve;
+    private LTDescr snapEffectTween;
+    private LTDescr pingRotationTween;
 
-    private LTDescr pingRotationTween = new LTDescr();
+
     public Action RotateAction;
 
     private void Awake()
@@ -180,8 +184,10 @@ public class Machine : MonoBehaviour
     }
 
     public void PingRotation(float time, int freq, Vector3 amt) {
-        if (LeanTween.isTweening(pingRotationTween.uniqueId))
+        if(pingRotationTween != null) {
+            if (LeanTween.isTweening(pingRotationTween.uniqueId))
                 LeanTween.cancel(gameObject, pingRotationTween.uniqueId);
+        }
 
         pingRotationTween = LeanTween.value(gameObject, 0, 1, time)
             .setOnUpdate((float t) => {
@@ -189,6 +195,21 @@ public class Machine : MonoBehaviour
                 transform.localRotation = Quaternion.Euler(newRot);
             })
             .setEaseOutQuint();
+    }
+
+    public void StartSnapEffect() {
+        if (snapEffectTween != null) {
+            if (LeanTween.isTweening(snapEffectTween.uniqueId))
+                LeanTween.cancel(gameObject, snapEffectTween.uniqueId);
+        }
+
+        var mat = snapEffect.GetComponentInChildren<MeshRenderer>().material;
+
+        snapEffectTween = LeanTween.value(gameObject, 0, 1, 0.25f)
+            .setEase(snapEffectCurve)
+            .setOnUpdate((float t) => {
+                mat.SetFloat("_Alpha", Mathf.Lerp(0, 1, t));
+            });
     }
 
     private Vector3 GetNoise(int frequency, Vector3 maximumTranslationShake) {

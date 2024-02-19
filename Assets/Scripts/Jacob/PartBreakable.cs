@@ -11,6 +11,12 @@ public class PartBreakable : MonoBehaviour {
     [SerializeField] private float breakDistance = 2f;
     [SerializeField] private float breakTime = 4f;
 
+    private Environment environment;
+
+    private void Awake() {
+        environment = GetComponentInParent<Environment>();
+    }
+
     private void OnTriggerEnter(Collider other) {
         if (other.transform.CompareTag("Player")) {
             isColliding = true;
@@ -35,7 +41,7 @@ public class PartBreakable : MonoBehaviour {
 
         isDetached = true;
 
-        transform.SetParent(null);
+        transform.SetParent(environment.GetObjectsTransform());
         GetComponent<Collider>().enabled = false;
         DisappearAnimation();
         return true;
@@ -52,7 +58,7 @@ public class PartBreakable : MonoBehaviour {
             .setEaseOutQuint()
             .setOnComplete(()=>gameObject.SetActive(false)));
 
-        tweens.Add(LeanTween.move(gameObject, transform.position - new Vector3(dirNorm.x * breakDistance, dirNorm.y * breakDistance, -5), breakTime)
+        tweens.Add(LeanTween.moveLocal(gameObject, transform.position - new Vector3(dirNorm.x * breakDistance, dirNorm.y * breakDistance, 0), breakTime)
             .setEaseOutQuint());
 
         var randomAxis = new Vector3(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));

@@ -2,6 +2,10 @@
 
 public abstract class Part : MonoBehaviour
 {
+
+    public PartType partType;
+    public ElementType elementType;
+
     public virtual void Snap(Transform socketTransform) { }
 
     public virtual void StartBehaviour() { }
@@ -16,3 +20,16 @@ public abstract class Part : MonoBehaviour
     }
 }
 
+public enum ElementType {
+    NONE,
+    WATER,
+    WIND,
+    EARTH,
+    FIRE
+}
+
+public enum PartType {
+    NONE,
+    SMALL,
+    BIG
+}

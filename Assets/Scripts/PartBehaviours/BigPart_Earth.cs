@@ -16,7 +16,7 @@ public class BigPart_Earth : Part
     float screenMax;
     float screenBuffer = 1.5f;
 
-    Vector3 targetRotation = new Vector3(45, 90, 0);
+    [SerializeField] private Vector3 targetRotation = new Vector3(45, 90, 0);
 
     private void Start() {
         StartBehaviour();
