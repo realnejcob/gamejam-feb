@@ -19,6 +19,10 @@ public class MachineActivator : MonoBehaviour
     [SerializeField]
     float toSizeScalar = 0.1f;
 
+    bool machineIsActivated = false;
+
+    Sequence upSequence = null;
+
     private void Start()
     {
         environmentController = FindObjectOfType<EnvironmentController>();
@@ -28,28 +32,61 @@ public class MachineActivator : MonoBehaviour
     {
         if (environmentController.GetIsLookingUp())
         {
-            var registeredParts = partAttractor.RegisteredParts;
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (machineIsActivated)
+                {
+                    if (upSequence.IsPlaying())
+                    {
+                        upSequence.Kill();
+                    }
+                    DeactivateMachine();
+                }
+                else
+                {
+                    var registeredParts = partAttractor.RegisteredParts;
 
-            if (registeredParts.Count > 0)
-            {
-                //machine.SetFollowMouse(false);
-                ActivateMachine(registeredParts);
+                    if (registeredParts.Count > 0)
+                    {
+                        //machine.SetFollowMouse(false);
+                        ActivateMachine(registeredParts);
+                    }
+                    else
+                    {
+                        // TODO: maybe feedback if you have not collected any parts yet? Negating audio clip?
+                    }
+                }
             }
-            else
-            {
-                // TODO: maybe feedback if you have not collected any parts yet? Negating audio clip?
-            }
+
         }
     }
 
     private void ActivateMachine(List<Part> registeredParts)
     {
-        Sequence sequence = DOTween.Sequence();
+        SetMachineActivationState(true);
+        upSequence = DOTween.Sequence();
         Vector3 toPosition = Vector3.zero;
         toPosition.z = machine.transform.position.z;
-        sequence.Append(machine.transform.DOMove(toPosition, toDuration))
+        upSequence.Append(machine.transform.DOMove(toPosition, toDuration))
                 .Join(machine.transform.DOScale(Vector3.one * toSizeScalar, toDuration))
                 .Join(machine.transform.DORotate(Vector3.right * 90, toDuration));
+    }
+
+    private void DeactivateMachine()
+    {
+        Sequence downSequence = DOTween.Sequence();
+        Vector3 toPosition = Vector3.zero;
+        toPosition.z = machine.transform.position.z;
+        downSequence.Append(machine.transform.DOMove(toPosition, toDuration))
+                .Join(machine.transform.DOScale(Vector3.one, toDuration))
+                .Join(machine.transform.DORotate(Vector3.zero, toDuration)).OnComplete(() => SetMachineActivationState(false));
+    }
+
+
+    void SetMachineActivationState(bool state)
+    {
+        machine.SetFollowMouse(!state);
+        machineIsActivated = state;
     }
 
     private void EjectParts(List<Part> registeredParts)
